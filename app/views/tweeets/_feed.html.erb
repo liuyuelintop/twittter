@@ -1,31 +1,34 @@
 <div class="column is-half">
+  <% if user_signed_in? %>
   <article class="media box">
     <figure class="media-left">
       <p class="image is-64x64">
-        <img src="https://ws3.sinaimg.cn/large/0069RVTdgy1fupx4omvesj301s01sweg.jpg">
+        <%= gravatar_image_tag(current_user.email, size: 64, alt: current_user.name) %>
       </p>
     </figure>
     <div class="media-content">
       <%= render 'form' %>
     </div>
   </article>
+  <% end %>
 
 <% @tweeets.each do |tweeet| %>
 <div class="box">
   <article class="media">
     <figure class="media-left">
       <p class="image is-64x64">
-        <img src="https://ws3.sinaimg.cn/large/0069RVTdgy1fupx4omvesj301s01sweg.jpg">
+        <%= gravatar_image_tag(tweeet.user.email, size: 64, alt: tweeet.user.name) %>
       </p>
     </figure>
     <div class="media-content">
       <div class="content">
-          <strong>Yuelin Liu</strong>
-          <small>@liuyuelin</small>
+          <strong><%= tweeet.user.name %></strong>
+          <small><%= tweeet.user.username %></small>
           <br>
           <p><%= tweeet.tweeet %></p>
       </div>
-      <nav class="level-left">
+      <% if user_signed_in? %>
+      <nav class="level">
         <div class="level is-mobile">
           <%= link_to tweeet, class: "level-item" do%>
             <span class="icon is-small"><i class="fa fa-link" aria-hidden="true"></i></span>
@@ -38,6 +41,7 @@
           <% end %>
         </div>
       </nav>
+      <% end %>
   </div>
   </article>
 </div>
